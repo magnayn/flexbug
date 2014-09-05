@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
+			 xmlns:fb="http://ns.adobe.com/flashbuilder/2009"			 
+			 alpha.disabled="0.5" blendMode="normal">
+	
+	
+	<s:states>
+		<s:State name="normal" />
+		<s:State name="disabled" />
+	</s:states>
+	
+	
+	<s:Rect id="fill" left="1" right="1" top="1" bottom="1" radiusX="3" radiusY="3">
+		<s:fill>
+			<s:SolidColor color="0xf7faff" alpha="0"/>
+		</s:fill>
+		<s:stroke>
+			<s:SolidColorStroke id="borderStroke" color="0xf1f1f1"/>
+		</s:stroke>
+	</s:Rect>
+	
+	<!-- layer 3: highlight -->
+	<!--- @private -->
+	<s:Rect id="highlight" left="1" right="1" top="1" bottom="1" radiusX="3" radiusY="3" alpha="0" >
+		<s:fill>
+			<s:LinearGradient>
+				<s:GradientEntry  id="bgFill" color="0xf8f8f8" ratio="0"/>
+				<s:GradientEntry color="0xececec" ratio="1"/>
+			</s:LinearGradient>
+		</s:fill>
+		<s:stroke>
+			<s:SolidColorStroke color="0xd8d8d8"/>
+		</s:stroke>
+		<s:filters>
+			<s:DropShadowFilter alpha="0.3" angle="0" blurX="5" blurY="5" distance="0" color="0x081625"/>
+		</s:filters>		
+	</s:Rect>
+	
+	<s:DataGroup id="dataGroup" left="0" top="0" right="0" bottom="0"
+				 itemRenderer="spark.components.itemRenderers.MenuBarItemRenderer">
+		<s:layout>		
+			<s:VerticalLayout gap="0" horizontalAlign="contentJustify" requestedMinRowCount="1" />
+		</s:layout>
+	</s:DataGroup>
+	
+	<fx:Script fb:purpose="styling">
+		/* Define the skin elements that should not be colorized.
+		For list, the skin itself is colorized but the individual parts are not. */
+		static private const exclusions:Array = ["background"];
+		
+		/**
+		 * @private
+		 */
+		override public function get colorizeExclusions():Array {return exclusions;}
+		
+		/* Define the content fill items that should be colored by the "contentBackgroundColor" style. */
+		static private const contentFill:Array = ["bgFill"];
+		
+		/**
+		 * @private
+		 */
+		override public function get contentItems():Array {return contentFill;}
+		
+		/**
+		 * @private
+		 */
+		override protected function initializationComplete():void
+		{
+			useChromeColor = true;
+			super.initializationComplete();
+		}
+		/**
+		 *  @langversion 3.0
+		 *  @playerversion Flash 10.1
+		 *  @playerversion AIR 2.5
+		 *  @productversion Flex 4.5
+		 */
+		override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+		{
+			if (getStyle("borderVisible") == true)
+			{
+				//border.visible = true;
+			//	background.left = background.top = background.right = background.bottom = 1;
+				dataGroup.left = dataGroup.top = dataGroup.right = dataGroup.bottom = 1;
+			}
+			else
+			{
+				//border.visible = false;
+				//background.left = background.top = background.right = background.bottom = 0;
+				dataGroup.left = dataGroup.top = dataGroup.right = dataGroup.bottom = 0;
+			}
+			
+			//borderStroke.color = getStyle("borderColor");
+			//borderStroke.alpha = getStyle("borderAlpha");
+			
+			super.updateDisplayList(unscaledWidth, unscaledHeight);
+		}
+	</fx:Script>
+</s:SparkSkin>

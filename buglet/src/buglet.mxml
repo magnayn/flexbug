@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600" creationComplete="application1_creationCompleteHandler(event)" xmlns:ns="http://flex.apache.org/experimental/ns">
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.XMLListCollection;
+			import mx.events.FlexEvent;
+			
+			import spark.events.MenuEvent;
+			
+			
+			[Bindable]
+			public var menuDP : XMLListCollection ;
+			
+			public const menudata : XML = <menuData>
+					<menu label="Menu One" 											data="five">
+						<menu label="SubMenu One">
+							<menu label="SubSubMenu One" 						data="seven2">
+								<menu label="SubSubSubMenu One" 			data="eight2" />
+								<menu label="SubSubSubMenu Two" 			data="nine2" />
+								<menu label="Checkable One" 						data="ten2" 			isCheckable="true" />
+								<menu label="Checkable Two" 						data="eleven2" 		isCheckable="true" 		isChecked="true"/>
+							</menu>
+							<menu label="SubSubMenu Two"						data="twelve" />
+						</menu>
+						<menu separator="true" />
+						<menu label="SubMenu Two">
+							<menu label="SubSubMenu One" 						data="seven">
+								<menu label="SubSubSubMenu One" 			data="eight" />
+								<menu label="SubSubSubMenu Two" 			data="nine" />
+								<menu label="Checkable One" 						data="ten" 			isCheckable="true" />
+								<menu label="Checkable Two" 						data="eleven" 	isCheckable="true" 		isChecked="true"/>
+							</menu>
+							<menu label="SubSubMenu Two"						data="twelve" />
+						</menu>
+					</menu>			
+					<menu label="Menu Two" 											data="five">
+						<menu label="SubMenu One">
+							<menu label="SubSubMenu One" 						data="seven2">
+								<menu label="SubSubSubMenu One" 			data="eight2" />
+								<menu label="SubSubSubMenu Two" 			data="nine2" />
+								<menu label="Checkable One" 						data="ten2" 			isCheckable="true" />
+								<menu label="Checkable Two" 						data="eleven2" 		isCheckable="true" 		isChecked="true"/>
+							</menu>
+							<menu label="SubSubMenu Two"						data="twelve" />
+						</menu>
+						<menu separator="true" />
+						<menu label="SubMenu Two">
+							<menu label="SubSubMenu One" 						data="seven">
+								<menu label="SubSubSubMenu One" 			data="eight" />
+								<menu label="SubSubSubMenu Two" 			data="nine" />
+								<menu label="Checkable One" 						data="ten" 			isCheckable="true" />
+								<menu label="Checkable Two" 						data="eleven" 	isCheckable="true" 		isChecked="true"/>
+							</menu>
+							<menu label="SubSubMenu Two"						data="twelve" />
+						</menu>
+					</menu>				
+				</menuData>;
+			
+			
+			//			
+			//			
+			protected function onMenuChanged(event:MenuEvent):void
+			{
+				trace("======================================");
+				trace("Selected : "+event.item.@label);				
+				trace("======================================");
+			}
+			protected function onMenuChecked(event:MenuEvent):void
+			{
+				trace("======================================");
+				trace("Item : "+event.item.@label+" is now "+event.item.@isChecked);
+				trace("======================================");
+			}
+			
+			protected function application1_creationCompleteHandler(event:FlexEvent):void
+			{
+				// TODO Auto-generated method stub
+				menuDP = new XMLListCollection(menudata.menu);
+				
+			}
+			
+			protected function menuBarMAIN_selectedHandler(event:MenuEvent):void
+			{
+				// TODO Auto-generated method stub
+				
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<ns:MenuBar 
+		id="menuBarMAIN"
+		
+		selected="onMenuChanged(event)"
+		checked="onMenuChecked(event)"
+		dataProvider="{menuDP}"
+		width="100%" height="25"
+		labelField="@label">
+		<ns:layout>
+			<s:HorizontalLayout />
+		</ns:layout>
+	</ns:MenuBar>
+	
+</s:Application>
